@@ -2,7 +2,7 @@
 
 extern struct NODE* root;
 extern struct NODE* cwd;
-
+// hi test
 //make directory
 void mkdir(char pathName[]){
 
