@@ -13,7 +13,7 @@ void mkdir(char pathName[]){
     char baseName[64];
     char dirName[64];
     struct NODE* parent = splitPath(pathName, baseName, dirName);
-    if (parent == NULL) {
+    if (!parent) {
         return;
     }
 
@@ -33,7 +33,7 @@ void mkdir(char pathName[]){
     newDir->siblingPtr = NULL;
     newDir->parentPtr = parent;
 
-    if (parent->childPtr == NULL) {
+    if (!(parent->childPtr)) {
         parent->childPtr = newDir;
     } else {
         struct NODE* sibling = parent->childPtr;
@@ -68,8 +68,7 @@ struct NODE* splitPath(char* pathName, char* baseName, char* dirName){
     strncpy(dirName, pathName, lastSlash - pathName);
     dirName[lastSlash - pathName] = '\0';
 
-    struct NODE* current;
-    current = (dirName[0] == '/') ? root : cwd;
+    struct NODE* current = (dirName[0] == '/') ? root : cwd;
     
     if (strcmp(dirName, "/") == 0) {
         return root;
@@ -90,7 +89,7 @@ struct NODE* splitPath(char* pathName, char* baseName, char* dirName){
         }
 
         if (!child) {
-            printf("ERROR: directory %s does not exist", token);
+            printf("ERROR: directory %s does not exist\n", token);
             return NULL;
         }
 
